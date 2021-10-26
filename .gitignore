@@ -1,0 +1,8 @@
+node_modules
+dist
+static/assets
+static/email/test-emails
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.vscode
