@@ -4,13 +4,13 @@ import {
     DefaultSearchPlugin,
     VendureConfig,
     NativeAuthenticationStrategy,
-} from '@vendure/core';
-import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin';
-import { AssetServerPlugin } from '@vendure/asset-server-plugin';
-import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
-import path from 'path';
+} from '@vendure/core'
+import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin'
+import { AssetServerPlugin } from '@vendure/asset-server-plugin'
+import { AdminUiPlugin } from '@vendure/admin-ui-plugin'
+import path from 'path'
 
-import { OTPAuthPlugin } from './plugins/opt-auth/plugin';
+import { SmsOtpPlugin } from './plugins/sms-otp/sms-otp-plugin'
 
 export const config: VendureConfig = {
     apiOptions: {
@@ -36,10 +36,11 @@ export const config: VendureConfig = {
             identifier: 'superadmin',
             password: 'superadmin',
         },
+        tokenMethod: 'cookie',
         cookieOptions: {
             secret: process.env.COOKIE_SECRET || 'cookie-secret',
         },
-        requireVerification: true,
+        requireVerification: false,
     },
     dbConnectionOptions: {
         type: 'better-sqlite3',
@@ -78,5 +79,6 @@ export const config: VendureConfig = {
             port: 3002,
         }),
         //OTPAuthPlugin,
+        SmsOtpPlugin,
     ],
-};
+}

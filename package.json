@@ -1,36 +1,46 @@
 {
-  "name": "trylah-vendure-backend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "populate": "ts-node populate.ts",
-    "run:server": "ts-node ./src/index.ts",
-    "run:worker": "ts-node ./src/index-worker.ts",
-    "start": "concurrently yarn:run:*",
-    "build": "tsc",
-    "prettier-format": "prettier --config .prettierrc --write \"src/**/*.ts\"",
-    "migration:generate": "ts-node migration generate",
-    "migration:run": "ts-node migration run",
-    "migration:revert": "ts-node migration revert"
-  },
-  "dependencies": {
-    "@vendure/admin-ui-plugin": "1.3.1",
-    "@vendure/asset-server-plugin": "1.3.1",
-    "@vendure/core": "1.3.1",
-    "@vendure/email-plugin": "1.3.1",
-    "better-sqlite3": "7.4.3"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
-    "@vendure/create": "^1.3.1",
-    "@vendure/testing": "^1.3.1",
-    "concurrently": "6.3.0",
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
-  }
+    "name": "trylah-vendure-backend",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "populate": "ts-node populate.ts",
+        "run:server": "ts-node ./src/index.ts",
+        "run:worker": "ts-node ./src/index-worker.ts",
+        "start": "concurrently yarn:run:*",
+        "prun:server": "node ./dist/src/index.js",
+        "prun:worker": "node ./dist/src/index-worker.js",
+        "pstart": "concurrently yarn:prun:*",
+        "build": "rimraf dist && tsc && cpy vendure.sqlite ./dist/ && cpy static/**/* ./dist/ --parents",
+        "generate-types": "graphql-codegen --config ./codegen.json",
+        "codegen": "tsc -p scripts/codegen/plugins && ts-node scripts/generate-graphql-types.ts",
+        "prettier-format": "prettier --config .prettierrc --write \"src/**/*.ts\"",
+        "migration:generate": "ts-node migration generate",
+        "migration:run": "ts-node migration run",
+        "migration:revert": "ts-node migration revert"
+    },
+    "dependencies": {
+        "@vendure/admin-ui-plugin": "1.3.1",
+        "@vendure/asset-server-plugin": "1.3.1",
+        "@vendure/core": "1.3.1",
+        "@vendure/email-plugin": "1.3.1",
+        "better-sqlite3": "^7.4.3"
+    },
+    "devDependencies": {
+        "@graphql-codegen/add": "^3.1.0",
+        "@graphql-codegen/cli": "^2.2.1",
+        "@graphql-codegen/typescript": "^2.2.4",
+        "@graphql-codegen/typescript-compatibility": "^2.1.5",
+        "@graphql-codegen/typescript-operations": "^2.1.8",
+        "@typescript-eslint/eslint-plugin": "^5.1.0",
+        "@typescript-eslint/parser": "^5.1.0",
+        "@vendure/create": "^1.3.1",
+        "@vendure/testing": "^1.3.1",
+        "concurrently": "6.3.0",
+        "eslint": "^8.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.4.1",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.4.4"
+    }
 }

@@ -1,0 +1,18 @@
+{
+    "overwrite": true,
+    "config": {
+        "strict": true
+    },
+    "generates": {
+        "src/plugins/sms-otp/generated-shop-types.ts": {
+            "schema": "http://localhost:3000/shop-api",
+            "plugins": [
+                {
+                    "add": { "content": "/* eslint-disable */" }
+                },
+                "typescript",
+                "typescript-compatibility"
+            ]
+        }
+    }
+}
